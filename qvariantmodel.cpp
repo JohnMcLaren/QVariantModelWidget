@@ -113,6 +113,9 @@ QVariantModel::data(const QModelIndex &index, int role) const
 	if(!index.internalPointer() || !columns)
 		return QVariant();
 
+//	if(role == Qt::TextAlignmentRole && Mode == Table)
+//		return(AlignmentTable);
+
 	if(role != Qt::DisplayRole && role != Qt::EditRole)
 		return QVariant(); // [IMPORTANT]
 

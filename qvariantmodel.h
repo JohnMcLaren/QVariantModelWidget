@@ -119,6 +119,15 @@ public:
 
 	return(s.left(s.size() - 1)); // remove last ':'
 	}
+	// truncate index
+	inline void
+	truncate(const uint newLength)
+	{
+		if(newLength < size())
+			erase(begin() + newLength, end());
+		else
+			return;
+	}
 	// append key to index
 	inline const QVariantModelIndex &
 	appendKeyByPosition(const QVariant &node, const int position)
@@ -188,10 +197,13 @@ public:
 	}
 
 	inline bool
-	operator> (const QVariantModelIndex &index) const
-	{
-		return(index < *this);
-	}
+	operator> (const QVariantModelIndex &index) const { return(index < *this); }
+
+	inline const QVariantModelIndex
+	operator+ (const QString &key) const { QVariantModelIndex tmp(*this); tmp +=key; return(tmp); }
+
+	inline const QVariantModelIndex
+	operator+ (const quint64 &key) const { QVariantModelIndex tmp(*this); tmp +=key; return(tmp); }
 
 private:
 	template<typename T_Map, typename T_Key>
@@ -358,8 +370,18 @@ private slots:
 	void
 	changeNodeIndex(const QVariantModelIndex &index, const NodeIndexAction action);
 
-private:
+public:
+	// This structure is only needed for model compatibility with the 'QModelIndex' view widgets. [QModelIndex legacy]
+	struct NodeIndex
+	{
+		const NodeIndex *parent;
+		QVariantModelIndex index;
+		bool IsList;
+		uint ExistenceTag; // When attempting to create existing nodes, they are marked with this marker 'ExistenceTag'.
+							// All new nodes created are marked with 'NewNodeTag'.
+	};
 
+private:
 	// Return data by index (consistent position in node)
 	const QVariant &
 	data(const QVariant &node,
@@ -415,15 +437,6 @@ private:
 			if(persistentIndex.internalPointer() && ((NodeIndex *)persistentIndex.internalPointer())->index.beginWith(index)) // skip 'index' AND childs indexes
 				changePersistentIndex(persistentIndex, QModelIndex());
 	}
-	// This structure is only needed for model compatibility with the 'QModelIndex' view widgets. [QModelIndex legacy]
-	struct NodeIndex
-	{
-		const NodeIndex *parent;
-		QVariantModelIndex index;
-		bool IsList;
-		uint ExistenceTag; // When attempting to create existing nodes, they are marked with this marker 'ExistenceTag'.
-							// All new nodes created are marked with 'NewNodeTag'.
-	};
 	// Create/Modify NodeIndex list (Nodes)
 	int
 	createNodeIndex(const QVariantModelIndex &index, const QVariant &data, OUT int * const pNodeIndexPosition =nullptr, int position =0, const NodeIndex *pParentNodeIndex =nullptr);
@@ -508,6 +521,7 @@ private:
 	ViewMode Mode =Tree;	// View mode of the widget associated with the model.
 	QVariantModelIndex RootViewIndex;
 	bool ReadOnly =true;
+	Qt::AlignmentFlag AlignmentTable =Qt::AlignVCenter; // Qt::AlignCenter
 
 	static uint UpdateEventID;		// Global identifier for model data update event (all models of all ViewModes)
 	uint LastUpdateEventID;

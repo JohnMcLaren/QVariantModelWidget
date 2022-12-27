@@ -8,6 +8,7 @@
 
 #include <QTableView>
 #include "qvariantmodel.h"
+#include <QHeaderView>
 #include <QDebug>
 
 class QVariantTreeWidget;
@@ -57,7 +58,16 @@ public:
 	removeData(const QVariantModelIndex &index) { return(model.removeData(index)); }
 	// Sets horizontal headers of this table
 	inline void
-	setHeaders(const QStringList &headers) { model.setHeaders(headers); }
+	setHeaders(const QStringList &headers)
+	{
+		model.setHeaders(headers);
+		horizontalHeader()->reset(); // ->doItemsLayout() - force repaints the Header after an update.
+
+		if(headers.size())
+			horizontalHeader()->setVisible(true);
+		else
+			horizontalHeader()->setVisible(false);
+	}
 	// Setting the root node, which will be the root of the visible table.
 	bool
 	setRootView(const QVariantModelIndex &index);

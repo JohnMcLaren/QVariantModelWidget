@@ -65,7 +65,15 @@ public:
 	removeData(const QVariantModelIndex &index) { return(model.removeData(index)); }
 	// Sets horizontal headers of this widget
 	inline void
-	setHeaders(const QStringList &headers) { model.setHeaders(headers); }
+	setHeaders(const QStringList &headers)
+	{
+		model.setHeaders(headers);
+
+		if(headers.size())
+			setHeaderHidden(false);
+		else
+			setHeaderHidden(true);
+	}
 	// Setting the root node, which will be the root of the visible tree.
 	bool
 	setRootView(const QVariantModelIndex &index);

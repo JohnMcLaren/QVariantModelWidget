@@ -6,6 +6,7 @@
 ************************************************************************************************/
 #include "qvarianttablewidget.h"
 #include "qvarianttreewidget.h"
+#include <QLayout>
 /******************************************************************************************
  * Constructors
 ******************************************************************************************/
@@ -33,13 +34,14 @@ QVariantTableWidget::QVariantTableWidget(const QVariant &rootValue, const QStrin
 void
 QVariantTableWidget::init(const QStringList &headers)
 {
-	setStyleSheet("QWidget {font: 'Arial'; font-size: 10pt}");
+	setStyleSheet("QWidget {font: 'Arial'; font-size: 10pt;}");
+	//setStyleSheet("QTableView::item {padding: 15px;}");
+	//setContentsMargins(0, 0, 0, 0);
 	model.Mode =QVM::Table;
 	connect(&model, &QVariantModel::updateColumns, this, &QVariantTableWidget::updateColumns);
 
 	setModel(&model);
 	setHeaders(headers);
-
 }
 /******************************************************************************************
  * Setting the root node, which will be the root of the visible table.
