@@ -45,8 +45,8 @@ public:
 		if(!model.setData(index, data))
 			return(false);
 
-		if(!index.size())
-			updateGeometries(); // [QT-BUG] force update on root index - special case
+		if(index.size() == model.RootViewIndex.size())
+			verticalHeader()->doItemsLayout();
 
 	return(true);
 	}
