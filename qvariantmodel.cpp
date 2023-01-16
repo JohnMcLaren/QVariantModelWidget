@@ -687,6 +687,7 @@ QModelIndex topLeft; // full update view by default
 	QVariant key;
 	bool bIsTableCell =(Mode == Table) ? (index.size() - RootViewIndex.size() == 2 ? true : false) : false;
 	bool bIsTableRow =(Mode == Table) ? (index.size() - RootViewIndex.size() == 1 ? true : false) : false;
+	bool bIsTable =(Mode == Table) ? (index.size() - RootViewIndex.size() == 0 ? true : false) : false;
 	bool bIsNodeToNode =((action & NodeRemoved) && (action & NodeInserted));
 	bool bRepaintRows =(Mode == Tree) || bIsTableRow;
 	const QVariant &nodeValue =convertVMItoMI(index, &topLeft, &key, bIsTableCell);
@@ -711,12 +712,15 @@ QModelIndex topLeft; // full update view by default
 				while(position < Nodes.size() && index.isParentOf(Nodes[position].index)) // walk on all childs of 'index'
 					if(Nodes[position].ExistenceTag != NewNodeTag && Nodes[position].ExistenceTag != OldNodeTag) // If a node is not present in the new data.
 					{
-						if(bRepaintRows)
+						if(bIsTable || bRepaintRows)
 						{	// Notify widget about changes
-							// [QT-NOTE] No other methods(insert*/remove*) change the appearance of the widget.
 							removePersistentModelIndexesFor(Nodes[position].index);
-							beginRemoveRows(createIndex(0, 0, (void *)Nodes[position].parent).parent(), 0, -1);
-							endRemoveRows();
+
+							if(bRepaintRows)
+							{// [QT-NOTE] No other methods(insert*/remove*) change the appearance of the widget.
+								beginRemoveRows(createIndex(0, 0, (void *)Nodes[position].parent).parent(), 0, -1);
+								endRemoveRows();
+							}
 						}
 
 						removeNodeIndex(Nodes[position].index, false);
@@ -735,11 +739,15 @@ QModelIndex topLeft; // full update view by default
 		else
 		if(action & NodeRemoved)
 		{
-			if(bRepaintRows)
+			if(bIsTable || bRepaintRows)
 			{
 				removePersistentModelIndexesFor(index);
-				beginRemoveRows(topLeft.parent(), topLeft.row(), topLeft.row());
-				endRemoveRows();
+
+				if(bRepaintRows)
+				{
+					beginRemoveRows(topLeft.parent(), topLeft.row(), topLeft.row());
+					endRemoveRows();
+				}
 			}
 
 			removeNodeIndex(index, action & NodeChanged);

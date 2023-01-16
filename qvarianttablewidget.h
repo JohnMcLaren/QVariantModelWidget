@@ -49,6 +49,7 @@ public:
 		{
 			verticalHeader()->doItemsLayout();
 			horizontalHeader()->doItemsLayout();
+			doItemsLayout();
 		}
 
 	return(true);
