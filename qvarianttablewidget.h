@@ -46,7 +46,10 @@ public:
 			return(false);
 
 		if(index.size() == model.RootViewIndex.size())
+		{
 			verticalHeader()->doItemsLayout();
+			horizontalHeader()->doItemsLayout();
+		}
 
 	return(true);
 	}

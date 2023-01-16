@@ -51,7 +51,7 @@ QVariantTreeWidget::setRootView(const QVariantModelIndex &index)
 {
 QModelIndex rootView;
 
-	if(index.size() && !model.data(index, nullptr, false, &rootView).isValid())
+	if(!QVM::isValid(model.data(index, nullptr, false, &rootView)))
 		return(false);
 
 	// set columns for view

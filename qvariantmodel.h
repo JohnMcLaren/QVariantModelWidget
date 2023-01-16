@@ -22,6 +22,7 @@ Q_DECLARE_METATYPE(QUIntMap)
 Q_DECLARE_METATYPE(QUIntHash)
 
 #endif
+
 /************************************************************************************************
  *									Check for QVariant node type
  ***********************************************************************************************/
@@ -380,6 +381,15 @@ public:
 		uint ExistenceTag; // When attempting to create existing nodes, they are marked with this marker 'ExistenceTag'.
 							// All new nodes created are marked with 'NewNodeTag'.
 	};
+	// Checks the value for validity as the data may contain a normal 'QVariant' value in the 'Invalid' state.
+	inline static bool
+	isValid(const QVariant &value)
+	{
+		if(&value == &NULLVAR)
+			return(false);
+
+	return(true);
+	}
 
 private:
 	// Return data by index (consistent position in node)
@@ -565,3 +575,5 @@ signals:
 
 } QVM;
 
+	inline static bool
+	isValid(const QVariant &value) { return(QVM::isValid(value)); }

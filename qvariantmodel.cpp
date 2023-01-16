@@ -265,7 +265,7 @@ int c =(-1), rowTree =0, rowTable =0;
 			return(NULLVAR);
 
 	// check ..
-		if(!pNode->isValid())
+		if(!isValid(*pNode))
 			return(NULLVAR); // wrong index / the key does not exist in the node
 	}
 
@@ -297,7 +297,7 @@ QVariantModel::setData(const QModelIndex &modelIndex, const QVariant &value, int
 QVariantModelIndex index =((NodeIndex *)modelIndex.internalPointer())->index;
 const QVariant &parentNode =data(index);
 
-	if(!parentNode.isValid())
+	if(!isValid(parentNode))
 		return(false);
 
 	index.appendKeyByPosition(parentNode, modelIndex.row());
@@ -316,7 +316,7 @@ QVariantModel::setData(const QVariantModelIndex &index, const QVariant value)
 {
 QVariant key, &nodeValue =const_cast<QVariant &>(data(index, &key, false)); // get reference to data value of node
 
-	if(index.size() && !nodeValue.isValid()) // 'index' not valid
+	if(!isValid(nodeValue)) // 'index' not valid
 		return(false);
 
 NodeIndexAction action =NoAction;
