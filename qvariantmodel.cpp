@@ -305,7 +305,7 @@ const QVariant &parentNode =data(index);
 	if(Mode == Table)
 		index.appendKeyByPosition(data(index), modelIndex.column());
 
-return(setData(index, const_cast<QVariant &>(value)));
+return(setData(index, value));
 }
 /******************************************************************************************
  * This is the main method of modifying the model data.

@@ -153,9 +153,15 @@ protected:
 	}
 	// On exit manual editing mode
 	inline void
-	commitData(QWidget *editor) override
+	closeEditor(QWidget *editor, QAbstractItemDelegate::EndEditHint hint) override
 	{
+		if(hint)
+			QAbstractItemView::commitData(editor);
+
+		QAbstractItemView::closeEditor(editor, hint);
 		unblockIndexUpdate();
-		QAbstractItemView::commitData(editor);
 	}
+
+	inline void
+	commitData(QWidget *editor) override { }
 };
