@@ -38,6 +38,7 @@ QVariantTreeWidget::init(const QStringList &headers)
 	setIndentation(12);
 	//setHeaderHidden(true);
 	connect(&model, &QVariantModel::updateColumns, this, &QVariantTreeWidget::updateColumns);
+	connect(&model, &QVariantModel::dataWillBeChanged, this, &QVariantTreeWidget::dataWillBeChanged); // signal to signal
 
 	setModel(&model);
 	setHeaders(headers);

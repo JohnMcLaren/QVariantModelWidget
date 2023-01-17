@@ -129,6 +129,9 @@ public:
 		else
 			return;
 	}
+	// return parent index
+	inline const QVariantModelIndex
+	parent() const { auto tmp(*this); tmp.removeLast(); return(tmp); }
 	// append key to index
 	inline const QVariantModelIndex &
 	appendKeyByPosition(const QVariant &node, const int position)
@@ -572,6 +575,7 @@ private:
 signals:
 	void updateColumns(const int number =0);
 	void dataChanged(const QVariantModelIndex &index, const NodeIndexAction action);
+	void dataWillBeChanged(const QVariantModelIndex &index, const QVariant &data, OUT bool &AllowDataChanges);
 
 } QVM;
 

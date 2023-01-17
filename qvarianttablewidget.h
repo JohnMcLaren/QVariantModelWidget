@@ -161,5 +161,8 @@ protected:
 
 	inline void
 	commitData(QWidget *editor) override { }
+
+signals:
+	void dataWillBeChanged(const QVariantModelIndex &index, const QVariant &data, OUT bool &AllowDataChanges);
 };
 

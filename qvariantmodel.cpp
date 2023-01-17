@@ -305,6 +305,13 @@ const QVariant &parentNode =data(index);
 	if(Mode == Table)
 		index.appendKeyByPosition(data(index), modelIndex.column());
 
+bool AllowChanges =true;
+
+	emit dataWillBeChanged(index, value, AllowChanges);
+
+	if(!AllowChanges)
+		return(false);
+
 return(setData(index, value));
 }
 /******************************************************************************************

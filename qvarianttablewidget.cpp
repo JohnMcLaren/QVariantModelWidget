@@ -39,6 +39,7 @@ QVariantTableWidget::init(const QStringList &headers)
 	//setContentsMargins(0, 0, 0, 0);
 	model.Mode =QVM::Table;
 	connect(&model, &QVariantModel::updateColumns, this, &QVariantTableWidget::updateColumns);
+	connect(&model, &QVariantModel::dataWillBeChanged, this, &QVariantTableWidget::dataWillBeChanged); // signal to signal
 
 	setModel(&model);
 	setHeaders(headers);
