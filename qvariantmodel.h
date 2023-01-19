@@ -297,12 +297,13 @@ public:
 	// Cross-connection of change signals between models.
 	bool
 	connectToChanges(const QVariantModel *anotherModel) const;
+
 	enum NodeIndexAction {
 
-		NoAction			=0,
-		NodeInserted		=1,
-		NodeRemoved			=2,
-		NodeChanged			=4
+		NoAction     =0,
+		NodeInserted =1,
+		NodeRemoved  =2,
+		NodeChanged  =4
 	};
 	/*-----------------------------------------------------------
 		*** Kept for compatibility with item based widgets ***
