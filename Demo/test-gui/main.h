@@ -6,8 +6,8 @@
 #include <QJsonObject>
 #include <QJsonDocument>
 #include <QTimer>
-#include "../qvarianttablewidget.h"
-#include "../qvarianttreewidget.h"
+#include "../../qvarianttablewidget.h"
+#include "../../qvarianttreewidget.h"
 
 class Window : public QFrame
 {

@@ -3,8 +3,9 @@
 
 ### Special ###
 -*
-*/debug
-*/release
+debug/
+release/
+.qmake.stash
 
 ### Qt ###
 # C++ objects and libs

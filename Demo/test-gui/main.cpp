@@ -39,6 +39,7 @@ QVariant varTable {QVariantList { // rows
 	win->tableTest.setDataSource(DataSource); // set reference to data root (same as a Tree)
 	win->tableTest.setRootView({"test-table"}); // set RootView for table in main tree by key {'test-table'}.
 	win->tableTest.updateColumns(5);
+	win->tableTest.setReadOnly(false);
 
 	win->tableTest.connectToChanges(&win->treeTest); // Enable mutual notification of data change events (tableTest <-> treeTest).
 //*/
