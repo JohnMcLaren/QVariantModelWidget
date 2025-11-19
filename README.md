@@ -1,3 +1,5 @@
+[![venture](https://img.shields.io/badge/Support_project-just_BUY_JML_Coin!-indigo?style=flat&logo=github)][venture-url]
+
 ## QVariantModelWidget
 This project contains classes for manipulating and displaying 
 complex arbitrary `QVariant` data objects in the view of a tree or table.
@@ -111,3 +113,5 @@ QVariantModel model(jdoc.toVariant());
 
 2. Add qvarianttablewidget.h/qvarianttreewidget.h headers to your source file
 ```
+
+[venture-url]: https://www.orca.so/?tokenIn=So11111111111111111111111111111111111111112&tokenOut=JMLCeiUjK64PMziqF8YiDNdky8PnrSG1waKY2LyQQKQ
